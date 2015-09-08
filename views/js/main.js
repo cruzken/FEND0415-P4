@@ -423,6 +423,7 @@ var resizePizzas = function(size) {
 
   // Refactored and optimized changePizzaSizes function
   function changePizzaSizes(size) {
+    var newWidth;
     switch(size) {
       case "1":
         newWidth = 25;
@@ -499,9 +500,9 @@ function updatePositions() {
     phaselist[i] = Math.sin((document.body.scrollTop / 1250) + (i % 5));
   }
 
-  for (var i = 0; i < items.length; i++) {
-    var phase = phaselist[i % phaselist.length];
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  for (var k = 0; k < items.length; k++) {
+    var phase = phaselist[k % phaselist.length];
+    items[k].style.left = items[k].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.

@@ -13,6 +13,7 @@ index.html
 1. Compressed images with imagemin
 2. Made javascript files asynchronous
 3. Inlined css code to the html file
+4. Removed Opensans font
 
 main.js
 
