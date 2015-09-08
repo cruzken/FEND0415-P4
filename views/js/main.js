@@ -437,10 +437,11 @@ var resizePizzas = function(size) {
       default:
         console.log("bug in sizeSwitcher");
     }
-
-    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
-
-    for (var i = 0; i < randomPizzas.length; i++) {
+    // Switched querySelectorAll to getElementsByClassName for faster calls
+    var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
+    // Stored length in a variable for more efficiency
+    var randomPizzasLength = randomPizzas.length;
+    for (var i = 0; i < randomPizzasLength; i++) {
       randomPizzas[i].style.width = newWidth + "%";
     }
   }
@@ -493,6 +494,8 @@ function updatePositions() {
 
 // Changed querySelectorAll to getElementsByClassName 
   var items = document.getElementsByClassName('mover');
+// items.length inside a variable for more effiency
+  var itemsLength = items.length;
   var phaselist = [];
 
 // Move the calculations out of the original loop to make things faster
@@ -500,8 +503,10 @@ function updatePositions() {
     phaselist[i] = Math.sin((document.body.scrollTop / 1250) + (i % 5));
   }
 
-  for (var k = 0; k < items.length; k++) {
-    var phase = phaselist[k % phaselist.length];
+// Moved declarations outside the loop
+  var phase;
+  for (var k = 0; k < itemsLength; k++) {
+    phase = phaselist[k % phaselist.length];
     items[k].style.left = items[k].basicLeft + 100 * phase + 'px';
   }
 
@@ -519,15 +524,17 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
+// Added pizza counter for variable window sizes
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
+  var rows = Math.floor(window.screen.height/100);
+  var countPizzas = cols * rows;
   var s = 256;
   var movingPizzas = document.getElementById('movingPizzas1');
   var elem;
-  // 100 pizzas reduced to 30, just good enough to display
   // Moved variable declarations to outside the loop
   // assigned getElementById to variable
-  for (var i = 0; i < 30; i++) {
+  for (var i = 0; i < countPizzas; i++) {
     elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
